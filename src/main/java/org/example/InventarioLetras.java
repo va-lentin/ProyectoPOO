@@ -1,5 +1,3 @@
-package org.example;
-
 import java.util.ArrayList;
 
 public class InventarioLetras {
@@ -44,4 +42,56 @@ public class InventarioLetras {
         totalCount = 0;
         nonZeroCount = 0;
     }
-}
+    public int get(char letra) {
+        String temporal = String.valueOf(letra).toLowerCase();
+        char letraMinuscula = temporal.charAt(0);
+
+        if (letraMinuscula < 'a' || letraMinuscula > 'z') {
+            throw new IllegalArgumentException("El caracter no es una letra valida.");
+        }
+        return inventario.get(letraMinuscula - 'a');
+    }
+
+    public void set(char letra, int valor) {
+        String temporal = String.valueOf(letra).toLowerCase();
+        char letraMinuscula = temporal.charAt(0);
+
+        if (letraMinuscula < 'a' || letraMinuscula > 'z' || valor < 0) {
+            throw new IllegalArgumentException("Caracter invalido o valor negativo.");
+        }
+
+        int indice = letraMinuscula - 'a';
+        int valorAnterior = inventario.get(indice);
+
+        inventario.set(indice, valor);
+
+        totalCount += (valor - valorAnterior);
+
+        if (valorAnterior == 0 && valor > 0) {
+            nonZeroCount++;
+        } else if (valorAnterior > 0 && valor == 0) {
+            nonZeroCount--;
+        }
+    }
+
+    public int size() {
+        return totalCount;
+    }
+
+    public boolean isEmpty() {
+        return nonZeroCount == 0;
+    }
+
+    public String toString() {
+        String resultado = "[";
+        for (int i = 0; i < 26; i++) {
+            int cantidad = inventario.get(i);
+            for (int j = 0; j < cantidad; j++) {
+                resultado += (char) ('a' + i);
+            }
+        }
+        resultado += "]";
+        return resultado;
+    }
+
+
