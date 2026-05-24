@@ -1,3 +1,5 @@
+package org.example;
+
 import java.util.ArrayList;
 
 public class InventarioLetras {
@@ -92,6 +94,34 @@ public class InventarioLetras {
         }
         resultado += "]";
         return resultado;
+    }
+    public char encriptarCesar(char letra) {
+        return encriptarCesarAuxiliar(letra, 3);
+    }
+
+    public char desencriptarCesar(char letra) {
+        return encriptarCesarAuxiliar(letra, -3);
+    }
+
+    public String encriptarPalabra(String palabra, int desplazamiento) {
+        String resultado = "";
+        for (int i = 0; i < palabra.length(); i++) {
+            resultado += encriptarCesarAuxiliar(palabra.charAt(i), desplazamiento);
+        }
+        return resultado;
+    }
+
+    public String desencriptarPalabra(String palabra, int desplazamiento) {
+        return encriptarPalabra(palabra, -desplazamiento);
+    }
+
+    private char encriptarCesarAuxiliar(char letra, int desplazamiento) {
+        if (letra >= 'a' && letra <= 'z') {
+            return (char) ('a' + (letra - 'a' + desplazamiento % 26 + 26) % 26);
+        } else if (letra >= 'A' && letra <= 'Z') {
+            return (char) ('A' + (letra - 'A' + desplazamiento % 26 + 26) % 26);
+        }
+        return letra;
     }
 
 
