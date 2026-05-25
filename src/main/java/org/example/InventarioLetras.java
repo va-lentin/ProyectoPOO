@@ -123,5 +123,50 @@ public class InventarioLetras {
         }
         return letra;
     }
+    public InventarioLetras add(InventarioLetras otro) {
+        InventarioLetras nuevo = new InventarioLetras();
+        for (int i = 0; i < 26; i++) {
+            int suma = this.inventario.get(i) + otro.inventario.get(i);
+            nuevo.inventario.set(i, suma);
+            if (suma > 0) {
+                nuevo.nonZeroCount++;
+            }
+        }
+        nuevo.totalCount = this.totalCount + otro.totalCount;
+        return nuevo;
+    }
+
+    public InventarioLetras subtract(InventarioLetras otro) {
+        InventarioLetras nuevo = new InventarioLetras();
+        for (int i = 0; i < 26; i++) {
+            int resta = this.inventario.get(i) - otro.inventario.get(i);
+            if (resta < 0) {
+                return null;
+            }
+            nuevo.inventario.set(i, resta);
+            if (resta > 0) {
+                nuevo.nonZeroCount++;
+            }
+        }
+        nuevo.totalCount = this.totalCount - otro.totalCount;
+        return nuevo;
+    }
+
+    public InventarioLetras amplifies(int n) {
+        if (n < 0) {
+            return null;
+        }
+        InventarioLetras nuevo = new InventarioLetras();
+        for (int i = 0; i < 26; i++) {
+            int multiplicacion = this.inventario.get(i) * n;
+            nuevo.inventario.set(i, multiplicacion);
+            if (multiplicacion > 0) {
+                nuevo.nonZeroCount++;
+            }
+        }
+        nuevo.totalCount = this.totalCount * n;
+        return nuevo;
+    }
+}
 
 
